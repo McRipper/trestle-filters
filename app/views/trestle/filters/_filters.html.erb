@@ -1,7 +1,11 @@
-<div class="filtersbox">
-  <%= search_form_for @q, url: admin.path(:index) do |f| %>
-    <%= with_form(f) { admin.filters.render(self, f) } %>
-    <%= f.submit "Search", class: 'btn btn-primary' %>
-    <%= link_to 'Reset', admin.path(:index) %>
-  <% end %>
-</div>
+<%= debug admin.filters.inspect %>
+
+<% if false # admin.filtrable? %>
+  <div class="filtersbox">
+    <%= search_form_for admin.model.ransack(params[:q]), url: admin.path(:index) do |f| %>
+      <%= with_form(f) { admin.filters.render(self, @q) } %>
+      <%= f.submit "Search", class: 'btn btn-primary' %>
+      <%= link_to 'Reset', admin.path(:index) %>
+    <% end %>
+  </div>
+<% end %>
